@@ -1,0 +1,132 @@
+NAME MEMORY APP — DEVELOPMENT PLAN
+==================================
+
+Use this plan with NAME_MEMORY_APP_SPEC.txt in Cursor on your Mac. Open both files in the same project so the AI and you can reference the spec while building.
+
+-------------------------------------------------------------------------------
+PREREQUISITES
+-------------------------------------------------------------------------------
+
+- Mac with Xcode installed (latest stable)
+- Apple Developer account ($99/year) for device testing and App Store
+- iOS 17+ target (SwiftData) or iOS 16+ (Core Data)
+- Project folder in Cursor with spec + this plan
+
+-------------------------------------------------------------------------------
+PHASE 1: PROJECT SETUP & DATA LAYER
+-------------------------------------------------------------------------------
+
+Goal: New Xcode project with data models and local persistence.
+
+1.1 Create new iOS App in Xcode (SwiftUI, SwiftData if iOS 17+) — No storyboards
+1.2 Define Node model (label, baseLabel, numericSuffix, primaryAttributeId, isUnique, generalInfo, dateCreated) — Spec §1
+1.3 Define Connection model (nodeA, nodeB, dateCreated) — Spec §1
+1.4 Wire SwiftData/Core Data container; confirm save/fetch works — Local only first
+1.5 Add input sanitization helper (trim, control chars, Unicode NFKC) — Spec §11
+1.6 Add length limits (Search 500, Add/Edit 2000, node 100, General Info 500, 50 nodes per add) — Spec §11
+
+Done when: You can create and persist Node and Connection in code; sanitization and limits in place.
+
+-------------------------------------------------------------------------------
+PHASE 2: ADD SCREEN & INPUT PARSING
+-------------------------------------------------------------------------------
+
+Goal: Quick Add with comma/space/+ parsing and connection creation.
+
+2.1 Build Add screen: single text field, Save button — Spec §3, §8
+2.2 Implement parsing: split by comma → groups; within group split by space; apply + concatenation (one space) — Spec §3
+2.3 First word in each group = master; create/find nodes; connect master to all other words in group — Spec §3
+2.4 Connect all masters in the same add to each other — Spec §3
+2.5 Duplicate masters: if master label exists, create "Label 2", "Label 3" (check isUnique) — Spec §4, §5
+2.6 Enforce max nodes per add (50) and max input length (2000) — Spec §11
+2.7 Navigate back to Home (or show success) after save
+
+Done when: User can enter e.g. Cody bald Texas + State garden, George old black dog, Kayla fiance and see correct nodes and connections.
+
+-------------------------------------------------------------------------------
+PHASE 3: HOME, SEARCH & RESULTS
+-------------------------------------------------------------------------------
+
+Goal: Home screen with search and search results.
+
+3.1 Build Home screen: search bar, Add button — Spec §2
+3.2 Search: single keyword → nodes whose label matches or is connected to matching node; show connected nodes as results — Spec §7
+3.3 Multi-keyword: comma-separated AND — nodes connected to ALL keywords — Spec §7
+3.4 Apply search length limit (500) and sanitization — Spec §11
+3.5 Search results list: show node display name (primary or "Label N" or label); tap → Node Detail — Spec §1 Display Rules
+3.6 Empty state when no search or no results
+
+Done when: User can search "dog", "dog, old", "dog, old, black" and get correct results; tap opens Node Detail.
+
+-------------------------------------------------------------------------------
+PHASE 4: NODE DETAIL & EDIT
+-------------------------------------------------------------------------------
+
+Goal: View a node, its connections, edit with modifiers, General Info.
+
+4.1 Build Node Detail layout: Connections (top) → Add/Edit (middle) → General Info (bottom) — Spec §6
+4.2 Connections: list chips/tags; tap → navigate to that node's detail
+4.3 Add Info: same parsing as Add; scoped to current node; . concatenates — Spec §6
+4.4 Primary: ... prefix in Add Info; remove connection via red X — Spec §6 (not d*/p*/u*)
+4.5 Display name: baseLabel + primary when set, else "Label N", else label — Spec §1
+4.6 General Info: single-line preview; tap → full-screen popup with TextEditor, X to close and save; scrollable; 500 char max — Spec §6
+4.7 Sanitize and enforce length limits on Edit and General Info — Spec §11
+
+Done when: User can open Cody, add "truck cat", remove connection with X, set primary with "... bald", edit General Info, see "Cody bald". (Not d*/p*/u* modifiers.)
+
+-------------------------------------------------------------------------------
+PHASE 5: MENU, QUICK GUIDE, APP/ACCOUNT SHELL
+-------------------------------------------------------------------------------
+
+Goal: Navigation and in-app help.
+
+5.1 Menu (dropdown or slide-out): Navigation (Home, Add, recent searches), App Info, Account Info, Quick Guide — Spec §2
+5.2 Quick Guide screen: content from Spec §9 (Add, Search, +, Edit modifiers, Primary, Unique, General Info) — Spec §9
+5.3 App Info: version, credits, support link/email
+5.4 Account Info: placeholder for Settings (appearance, backup, sync later)
+
+Done when: Menu opens, Quick Guide readable, App Info and Account Info screens exist.
+
+-------------------------------------------------------------------------------
+PHASE 6: STORAGE & SYNC OPTIONS
+-------------------------------------------------------------------------------
+
+Goal: Confirm local storage behavior and optional iCloud sync.
+
+6.1 Appearance: Keep current minimal settings as-is (theme + font size step). No advanced appearance expansion.
+6.2 Storage: Ensure data is local only (SwiftData/Core Data in app container) — No server
+6.3 Optional iCloud: Enable iCloud + CloudKit; configure so data syncs to user's iCloud — User's iCloud only
+
+Done when: Current appearance settings remain stable; data on device (and optionally syncs to iCloud).
+
+-------------------------------------------------------------------------------
+PHASE 7: POLISH & APP STORE PREP
+-------------------------------------------------------------------------------
+
+Goal: Ready for TestFlight and App Store.
+
+7.1 App icon, launch screen
+7.2 Test on device; fix crashes and layout issues
+7.3 Privacy: no server collection; data on device / user iCloud; state in App Store Connect and privacy policy
+7.4 App Store Connect: create app, metadata, screenshots, privacy policy URL
+7.5 Archive, upload build, submit for review
+
+-------------------------------------------------------------------------------
+ORDER SUMMARY
+-------------------------------------------------------------------------------
+
+1. Phase 1 — Data models + persistence + validation
+2. Phase 2 — Add screen + full parsing + duplicate/unique logic
+3. Phase 3 — Home + search + results
+4. Phase 4 — Node Detail + Edit + General Info
+5. Phase 5 — Menu + Quick Guide + App/Account screens
+6. Phase 6 — Storage behavior + iCloud option
+7. Phase 7 — Polish + App Store
+
+-------------------------------------------------------------------------------
+USING THIS IN CURSOR ON MAC
+-------------------------------------------------------------------------------
+
+- Keep NAME_MEMORY_APP_SPEC.txt and DEVELOPMENT_PLAN.txt in the same folder as your Xcode project (or in a docs folder).
+- In Cursor, open the project folder and @ mention the spec when asking for code: e.g. "Implement the Add screen parsing per NAME_MEMORY_APP_SPEC.txt section 3."
+- Work through phases in order; check off steps as you go.

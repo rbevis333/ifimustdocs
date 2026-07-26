@@ -1,0 +1,182 @@
+NAME MEMORY APP — PRODUCT SPECIFICATION
+=======================================
+
+A flexible, graph-based app for remembering people and connections. Every word is a node; connections form a searchable memory graph.
+
+For Cursor on Mac: Use this spec with DEVELOPMENT_PLAN.txt in the same project. Reference this file (e.g. "per NAME_MEMORY_APP_SPEC.txt section 3") when asking Cursor to implement features.
+
+-------------------------------------------------------------------------------
+CORE CONCEPT
+-------------------------------------------------------------------------------
+
+People, places, dogs, attributes—everything is an equal node. Search by any term to find connected memories. No rigid hierarchy; the structure emerges from what you add and how you connect it.
+
+-------------------------------------------------------------------------------
+1. DATA MODEL
+-------------------------------------------------------------------------------
+
+Node
+- label — The text (e.g., "Cody", "bald", "Texas")
+- baseLabel — For masters: the base name before numbering ("Cody")
+- numericSuffix — 1, 2, 3 when duplicate masters exist; null otherwise
+- primaryAttributeId — Optional; links to node used as primary attribute for display
+- isUnique — Boolean; canonical nodes (e.g., Texas) are not duplicated
+- generalInfo — Optional free-text notes; max 500 characters; NOT searchable
+- dateCreated
+
+Connection
+- nodeA — Reference to Node
+- nodeB — Reference to Node
+- dateCreated
+
+Display Rules
+- If primaryAttribute set → Display as {baseLabel} {primaryAttribute.label} (e.g., "Cody bald")
+- Else if numbered → Display as {baseLabel} {numericSuffix} (e.g., "Cody 1")
+- Else → Display as {label} (e.g., "Texas")
+
+-------------------------------------------------------------------------------
+2. HOME SCREEN
+-------------------------------------------------------------------------------
+
+Two entry points only:
+- Search bar — Type keywords (comma-separated for multi-keyword AND search)
+- Add button — Open Quick Add to create new memories
+
+Menu (dropdown / slide-out)
+- Navigation — Home, Add, recent searches
+- App Info — Version, credits, support
+- Account Info — Settings, backup, sync (future)
+- Quick Guide — Full explanation of input format and modifiers
+
+-------------------------------------------------------------------------------
+3. INPUT FORMAT (ADD SCREEN)
+-------------------------------------------------------------------------------
+
+Rules
+- Space — Separates words; each word becomes a node
+- Comma — Starts a new group; the next word is that group's master
+- + — Concatenate; joins adjacent words into one node with exactly one space between them
+
+Concatenation Modifier (+)
+Use + when a node needs two or more words (e.g., "Texas State", "San Antonio").
+Equivalent inputs — all produce "Texas State": Texas + State | Texas+State | Texas +State | Texas+ State
+Rule: Regardless of spaces around +, the output node has exactly one space between concatenated parts.
+
+Example (with concatenation)
+Input: Cody bald Texas + State garden, George old black dog, Kayla fiance
+Group 1: Cody (master) | bald, Texas State, garden
+Group 2: George (master) | old, black, dog
+Group 3: Kayla (master) | fiance
+
+Connections
+- Within each group: Master connects to every other word (or concatenated node) in that group.
+- Between masters: All masters in the same add are connected to each other.
+Result: Cody ↔ bald, Texas State, garden, George, Kayla | George ↔ old, black, dog, Cody, Kayla | Kayla ↔ fiance, Cody, George
+
+-------------------------------------------------------------------------------
+4. DUPLICATE MASTERS
+-------------------------------------------------------------------------------
+
+When the same master name appears multiple times: First: Cody | Second: Cody 2 | Third: Cody 3
+
+Primary Attribute
+Assigned via Edit to differentiate duplicates. Without: "Cody 1", "Cody 2". With: "Cody bald", "Cody tall", "Cody old". Primary can be an existing connected node or a new keyword added in Edit.
+
+-------------------------------------------------------------------------------
+5. UNIQUE / CANONICAL NODES
+-------------------------------------------------------------------------------
+
+Canonical nodes (isUnique) may exist in the data model. The app does NOT use d*, p*, or u* text commands. Duplicates are handled via composite labels and primary attributes.
+
+-------------------------------------------------------------------------------
+6. EDIT SCREEN
+-------------------------------------------------------------------------------
+
+Same input logic as Add (including + concatenation), but scoped to the current node (no comma/group parsing).
+
+Add Info (Node Detail — not d*/p*/u*)
+- Words — Add and connect — e.g. truck cat
+- . or + — Concatenate — Texas.State → Texas State
+- ... attribute — Set primary — e.g. ... bald → display Cody bald
+- ... alone — Clear primary
+- Red X on connection row — Remove connection
+
+REMOVED: d* delete, p* primary, u* unique (no longer in spec).
+
+Node Detail Layout (top to bottom)
+1. Connections — List; red X removes; tap name to open node
+2. Add Info — Single-line field (... for primary)
+3. General Info — Free-edit notes (single-line preview; tap to expand)
+
+General Info (Node Detail only)
+- Location: Node Detail page, at bottom (below Add/Edit)
+- Max length: 500 characters
+- Searchable: No
+- Display: Single-line preview (truncated); tap to open full editor
+Behavior: Collapsed = single line with ellipsis if needed. Tap = full-screen popup with text editor. X top-right to close and save. Popup text area is finger-scrollable when content is long.
+
+-------------------------------------------------------------------------------
+7. SEARCH
+-------------------------------------------------------------------------------
+
+Single keyword: e.g. dog → all nodes connected to "dog"
+Multi-keyword (AND): dog, old → nodes connected to BOTH; dog, old, black → nodes connected to ALL THREE.
+
+-------------------------------------------------------------------------------
+8. SCREENS SUMMARY
+-------------------------------------------------------------------------------
+
+Home — Search bar + Add button + Menu
+Add — Single text field for Quick Add (comma/space parsing)
+Search Results — Nodes matching the query
+Node Detail — Connections (top) → Add/Edit (middle) → General Info (bottom)
+
+-------------------------------------------------------------------------------
+9. QUICK GUIDE CONTENT (for in-app menu)
+-------------------------------------------------------------------------------
+
+How to Add: Each word = node. Commas separate groups; first word after comma = master. Use + for multi-word nodes (Texas + State).
+How to Search: One or more keywords; commas = AND (narrow results).
+Add Info: truck cat (add) | ... bald (primary) | red X (remove connection).
+Primary Attribute: Set with ... in Add Info (not p*).
+General Info: Max 500 chars; not searchable; tap to open full editor.
+
+-------------------------------------------------------------------------------
+10. EDGE CASES
+-------------------------------------------------------------------------------
+
+Single word before comma = one-node group. Trailing comma = ignore empty group. Duplicate word in same group = create node once. Same word as master elsewhere = reuse node. Empty group ,, = ignore. ... newword = add, connect, set primary. ... alone = clear primary. Remove connection = red X (not d*). Texas  +   State = "Texas State" (one space). + with only one adjacent word = invalid/ignore. General Info over 500 = truncate or block. General Info empty = placeholder.
+
+-------------------------------------------------------------------------------
+11. SECURITY / INPUT VALIDATION
+-------------------------------------------------------------------------------
+
+Length Limits: Search 500 | Add/Edit 2000 | Node label 100 | General Info 500 | Nodes per add 50.
+
+Input Sanitization (all fields): Trim whitespace. Remove control chars (0x00–0x1F, 0x7F) and non-printable Unicode. Normalize Unicode (e.g. NFKC). Enforce length limits before processing.
+
+Field-specific: Search — length limit, strip control chars, ignore empty. Add/Edit — length limit, max nodes, max node length, sanitize. General Info — 500 limit, strip control chars, normalize.
+
+Implementation: Use SwiftData/Core Data model bindings; never build query strings from user input. Use native Text/TextEditor only. Store plain text only; never execute user input as code.
+
+-------------------------------------------------------------------------------
+12. DATA STORAGE
+-------------------------------------------------------------------------------
+
+No server; no user data on your backend. All data on user's device or user's iCloud. Local: SwiftData or Core Data in app container. Optional iCloud: Enable iCloud + CloudKit; data syncs to user's private iCloud (user's account, not your servers). Privacy: Declare in App Store Connect and privacy policy.
+
+-------------------------------------------------------------------------------
+13. APPEARANCE SETTINGS (CURRENT SCOPE)
+-------------------------------------------------------------------------------
+
+App Settings keeps appearance minimal: Theme (Light/Dark) and Font size step (Small/Medium/Large).
+No advanced color customization (for example, ColorPicker) is planned in this scope.
+
+-------------------------------------------------------------------------------
+14. TECHNICAL NOTES
+-------------------------------------------------------------------------------
+
+Storage: SwiftData or Core Data; device + optional iCloud only (§12). UI: SwiftUI; apply minimal §13 appearance settings. Platform: iOS 17+ (SwiftData) or iOS 16+ (Core Data). Search: Match labels; filter by connections for AND logic. General Info popup: ScrollView + TextEditor for scrollable text. Input validation: See §11.
+
+-------------------------------------------------------------------------------
+Spec for use with DEVELOPMENT_PLAN.txt in Cursor on Mac + Xcode.

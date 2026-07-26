@@ -1,0 +1,88 @@
+IF I MUST — PROOFREADING COPY
+Generated for wording review. Edit this doc, then tell the developer which lines to change in the app.
+
+
+================================================================================
+HOW-TO
+(How-To Guide — Menu → How-To Guide)
+================================================================================
+
+--- How to Add Contact on the Home Page ---
+
+— Each word becomes a searchable node or attribute.
+— Type in the Add Contact field, then press Return (Done) on the keyboard or tap Add bubble above the keyboard.
+— Format: the first word is the Master (contact base). All words after that are attributes. On add, the first two words become primary attributes. (e.g. entering “tom tall mechanic tupelo piano” creates Contact “tom tall mechanic” with Attributes “tupelo” and “piano” searchable as linked attributes).
+— Use commas to separate groups — the first word in each group is the Master for that group.
+— Use . to concatenate words into one node (e.g. New.York → “New York”, one space between).
+— A single-word group creates a container Master with no Primaries yet (e.g. “BBQ.7/4/26” for an event).
+— Allowed characters: letters, numbers, spaces, periods, commas, hyphens, and forward slashes (for dates and names). All text is stored in lowercase.
+— Tap Show Hints under the field for more help. Turn hints off entirely in Menu → App Settings → App Hints.
+
+Examples:
+• “Bill short old car.dealer” creates Contact “bill short old” with additional Attribute “car dealer”.
+• “James tan car.dealer, Sally tall teacher glasses, Fido old dog brown” creates three linked Contacts (“james tan car dealer”, “sally tall teacher”, “fido old dog”), each with extra Attributes as entered.
+
+--- How to Search on the Home Page ---
+
+— Type in the Search field. Results update live in the gray box as you type — contacts and attributes.
+— Search matches the start of any word in a name or attribute (e.g. “banker” or “dog” can find a multi-word attribute like “tall banker houston” or “fido little black dog”).
+— Use one or more keywords separated by spaces for AND search (e.g. dog brown).
+— Optional: press Return or tap Search bubble above the keyboard to save the query to Recent Searches. Menu → Recent Searches lists up to 20 past queries (no expiration).
+
+--- Browsing on the Home Page ---
+
+— All Contacts lists Contacts only (Master + Primary display names) — not standalone Attributes. Attributes still appear in Search.
+— Recently Added lists Contacts you created recently. Use the menu at the top to filter Past Day, Past Week, or Past Month.
+
+--- Editing Info on a Master Page ---
+
+— One field sits below the contact name. Under it, a short line describes the active mode. Three buttons choose the mode: Word (default, black when selected), Link, and Make.
+— Word — adds keywords or attributes to the current contact. Enter text, then press Return or tap Add Info bubble above the keyboard. 
+— Link — links an existing contact to the current contact. Search works like Home page (any word; multiple keywords for AND search). Tap a contact in the results to connect.
+— Make — creates a new contact AND links it to the current contact at the same time. Same rules as Home page Add Contact: first word is Master, following words primary attributes.
+— Concatenate: use . between words (e.g. new.york → New York).
+— There can be 0-3 primary attributes. Tap X beside the contact name to clear all Primaries. Tap  the green + on a connection row (tap order = display order). 
+— Amend Master name: tap the pencil beside the title to edit only the Master word (e.g. “tom” → “thomas”). Press Return or tap Amend bubble above the keyboard.  No need for . to concatenate here.
+— The Connections/Attributes section lists linked nodes. Tap the red X on a row to remove that connection.
+— General Info: tap the notes preview to open the full editor; tap X to close and save (max 500 characters, not searchable).
+— Tap Show Hints under the field for a short summary. Turn hints off in App Settings → App Hints.
+
+--- Other Options on the Master Page ---
+
+— Add a phone number and email on the Master page, click enter or Add bubble above the keyboard.  Once entered they become links to call or email.  Editable.
+— If someone becomes a friend, tap Add to Contacts to add them to your phone’s Contacts app. First-letter capitalization is applied on export.
+— Tap Delete at the bottom to remove the Master and its connections from the app.  This is password protected via your phone's password.  If password protection is not setup on your phone, anyone with access to your phone can delete your contacts.
+
+--- App Settings & Backup ---
+
+— Open App Settings from the gear icon on the Home or Master page, or from the menu.
+— App Hints: turn field hints On or Off. Theme: Light or Dark. Text: adjust font size.
+— Backup: email or import a JSON backup of your graph.
+— Delete Empty Containers (App Settings): removes attribute-only nodes with no connections left after you disconnect them. Contact Masters are kept.
+— App Info (in the menu) shows version, iCloud note, and a link to www.ifimust.com.
+
+
+================================================================================
+HOME HINTS
+(Home page — tap “Show Hints” under Add Contact)
+================================================================================
+
+1. Format Hint: entering "john tall banker old" makes "john" the Master with "tall", "banker", and "old" Attributes, creating Contact "john tall banker" as 2 primary attributes are set by default.
+
+2. Concatenate: use . between words (e.g. new.york → New York)
+
+3. For creating multiple interlinked Masters, use commas (e.g. enter "jack dad, jill mom")
+
+
+================================================================================
+MASTER HINTS
+(Master page — tap “Show Hints” under the Add Info field)
+================================================================================
+
+1. Tap the pencil to amend the Master name only (e.g. change “tom” to “thomas” without changing Primaries)
+
+2. Tap X next to the contact name to clear all Primary attributes; tap green + on a row to add Primary in tap order (up to 3)
+
+3. Three Field States, Word, add keywords or attributes to current contact, Link, link an existing contact to current contact, Make, create a new contact AND link to current contact
+
+4. Concatenate: use . between words (e.g. new.york → New York)
