@@ -63,26 +63,25 @@ Copy everything in the box below:
 ```text
 Read WINDOWS-ANDROID-START.md and ANDROID-HANDOFF.md first.
 
-Then read once (for context only — do not re-implement from chat alone):
-- If I Must Specs/iPhone-App-Discussion-chat.txt
-- If I Must Specs/NAME_MEMORY_APP_SPEC.md
-- If I Must Specs/DEVELOPMENT_PLAN.md
-- If I Must Specs/If-I-Must-App-NOTES.md
-- If I Must Design/DESIGN_REFERENCE.md
+UI/UX SOURCE OF TRUTH (required for any layout or screen work):
+- Open folder Android-Parity/
+- Follow Android-Parity/README.md reading order
+- Match docs + Android-Parity/screenshots/*.png
+- Use Android-Parity/07-ANDROID-CHECKLIST.md before calling a screen done
 
-Goal: Build an exact functional copy of the iOS app "If I Must" for Android.
+Do NOT rebuild early concepts from Design/DESIGN_REFERENCE.md (profile icon, chip clouds, modifiers).
+Do NOT put Connections/Attributes above Word/Link/Make on Master.
+
+Then read once for product/parser context (not layout):
+- Specs/NAME_MEMORY_APP_SPEC.md
+- Specs/If-I-Must-App-NOTES.md
+- Specs/iPhone-App-Discussion-chat.txt (optional long context)
+
+Goal: Exact functional + visual copy of the iOS app "If I Must" for Android.
 Stack: Kotlin + Jetpack Compose + Room + Play Billing (yearly + trial like iOS).
-Live iPhone source is on Mac Desktop/If I Must — NOT in this repo. Specs/Design here are the handoff.
+Live iPhone Swift is on Mac only — NOT in this repo.
 
-Phase 1 (do this first, before feature screens):
-1. Confirm Android Studio / SDK assumptions.
-2. Create a new Android app project (package suggestion: com.ifimust.app or app.ifimust — ask me to confirm).
-3. Put the project in a clear folder (e.g. ifimustdocs/android/ or sibling folder Documents/IfIMustAndroid) and explain which.
-4. Wire minSdk / targetSdk reasonably (API 26+ min unless you justify otherwise).
-5. Get a blank app running on emulator or device.
-6. Give me a short parity checklist (Home, Search, Master Word/Link/Make, Call/Text/Email, Drafts/Notes, Favorites, subscription gate).
-
-Do not invent a redesign. Match iOS behavior and parsing rules (spaces / periods / commas; Word Sentence mode). Offline-first local DB; sync later if needed (no CloudKit on Android).
+Phase 1 (if skeleton not done): create/run empty app, then implement Home → Master → lists using Android-Parity.
 Ask before creating a new GitHub repo for the Android code.
 ```
 
@@ -116,7 +115,9 @@ Implement in roughly this order (agent can refine):
 8. Backup JSON import/export (match iOS if needed)  
 9. Polish / Settings (Minimalist, symbols, etc.)
 
-Use Design PNGs as layout reference, Specs for rules.
+**Layout / look:** `Android-Parity/` (docs + screenshots).  
+**Graph / parser rules:** `Specs/`.  
+**Early design PNG:** historical only — do not override Android-Parity.
 
 ---
 
@@ -124,7 +125,7 @@ Use Design PNGs as layout reference, Specs for rules.
 
 ### “Just say look at all the files?”
 
-**No.** Point the agent at **this file** + the starter prompt. Indexing the whole chat dump alone wastes tokens; Specs + Design are the source of truth for rules/layout; the chat is **optional context once**.
+**No.** Point the agent at **`Android-Parity/README.md`** + this file’s starter prompt. Specs are for product rules; the long chat dump is optional once.
 
 ### “Create similar files locally for Android?”
 
@@ -175,4 +176,7 @@ No need to create the Play listing on day one if you only want emulator runs.
 
 ## UI parity (required for layout fixes)
 
-Read **`Specs/IPHONE_UI_PARITY.md`** before changing Android layout. It is the source of truth for Home/Master/Menu/Settings order and controls. Optional screenshots: `Design/screenshots/iphone/`.
+**One folder:** [`Android-Parity/`](Android-Parity/README.md)
+
+Contains screen-by-screen design + function docs, current iPhone screenshots, and `07-ANDROID-CHECKLIST.md`.  
+Windows agent should start there for every layout parity fix.
