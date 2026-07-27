@@ -171,3 +171,8 @@ No need to create the Play listing on day one if you only want emulator runs.
 ---
 
 *Last updated: July 2026*
+
+
+## UI parity (required for layout fixes)
+
+Read **`Specs/IPHONE_UI_PARITY.md`** before changing Android layout. It is the source of truth for Home/Master/Menu/Settings order and controls. Optional screenshots: `Design/screenshots/iphone/`.
