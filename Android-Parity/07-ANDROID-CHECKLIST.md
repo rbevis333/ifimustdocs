@@ -60,6 +60,13 @@ Use after implementing or fixing each area. Check against the named screenshot.
 - [ ] How-To matches `HOW-TO-GUIDE.md` including **Watch Tutorial Video** → YouTube channel
 - [ ] Why I Built matches `WHY-I-BUILT-THIS-APP.md` word-for-word (10 paragraphs)
 
+## Font scaling (`09-FONT-SCALING.md`)
+
+- [ ] One global scale table (Small = 1.0); not text-only
+- [ ] Connection-row red X / green + / grip scale with attribute text
+- [ ] X Small: icons are not massively larger than text
+- [ ] Button rows grow with font size
+
 ---
 
 ## Done criteria for a screen

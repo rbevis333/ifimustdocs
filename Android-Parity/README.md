@@ -26,6 +26,7 @@ Work the checklist in 07-ANDROID-CHECKLIST.md before calling a screen “done.�
 
 Also required when relevant:
 - Reorder: 08-REORDER-DRAG.md (entire row must float — X, name, green +, grip — not grip alone)
+- Font Size: 09-FONT-SCALING.md (scale icons + buttons with text; Small = 1.0 baseline)
 - How-To: HOW-TO-GUIDE.md (include Watch Tutorial Video → https://www.youtube.com/@IfIMustLLC)
 - Why I Built: WHY-I-BUILT-THIS-APP.md (exact 10 paragraphs)
 ```
@@ -46,8 +47,9 @@ Also required when relevant:
 | 7 | [`06-LISTS.md`](06-LISTS.md) + screenshots `07`–`09` | All Contacts / Recent / Favorites |
 | 8 | [`07-ANDROID-CHECKLIST.md`](07-ANDROID-CHECKLIST.md) | Pass/fail checklist |
 | 9 | [`08-REORDER-DRAG.md`](08-REORDER-DRAG.md) | **Full-row** drag (not grip-only) — snapshot behavior |
-| 10 | [`HOW-TO-GUIDE.md`](HOW-TO-GUIDE.md) | Full How-To text + YouTube link |
-| 11 | [`WHY-I-BUILT-THIS-APP.md`](WHY-I-BUILT-THIS-APP.md) | Full Why I Built copy |
+| 10 | [`09-FONT-SCALING.md`](09-FONT-SCALING.md) | Font Size must scale **icons + buttons**, not text only |
+| 11 | [`HOW-TO-GUIDE.md`](HOW-TO-GUIDE.md) | Full How-To text + YouTube link |
+| 12 | [`WHY-I-BUILT-THIS-APP.md`](WHY-I-BUILT-THIS-APP.md) | Full Why I Built copy |
 
 ---
 
