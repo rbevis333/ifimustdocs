@@ -23,6 +23,11 @@ Do NOT invent missing UI — if unsure, open the matching screenshot and the mat
 
 Fix order: Home → Menu → Settings → Master → list pages (All Contacts / Recent / Favorites).
 Work the checklist in 07-ANDROID-CHECKLIST.md before calling a screen “done.”
+
+Also required when relevant:
+- Reorder: 08-REORDER-DRAG.md (entire row must float — X, name, green +, grip — not grip alone)
+- How-To: HOW-TO-GUIDE.md (include Watch Tutorial Video → https://www.youtube.com/@IfIMustLLC)
+- Why I Built: WHY-I-BUILT-THIS-APP.md (exact 10 paragraphs)
 ```
 
 ---
@@ -40,6 +45,9 @@ Work the checklist in 07-ANDROID-CHECKLIST.md before calling a screen “done.�
 | 6 | [`05-MASTER.md`](05-MASTER.md) + screenshots `10`–`12` | Master page (most Android bugs) |
 | 7 | [`06-LISTS.md`](06-LISTS.md) + screenshots `07`–`09` | All Contacts / Recent / Favorites |
 | 8 | [`07-ANDROID-CHECKLIST.md`](07-ANDROID-CHECKLIST.md) | Pass/fail checklist |
+| 9 | [`08-REORDER-DRAG.md`](08-REORDER-DRAG.md) | **Full-row** drag (not grip-only) — snapshot behavior |
+| 10 | [`HOW-TO-GUIDE.md`](HOW-TO-GUIDE.md) | Full How-To text + YouTube link |
+| 11 | [`WHY-I-BUILT-THIS-APP.md`](WHY-I-BUILT-THIS-APP.md) | Full Why I Built copy |
 
 ---
 

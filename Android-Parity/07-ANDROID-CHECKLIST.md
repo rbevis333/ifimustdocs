@@ -50,6 +50,16 @@ Use after implementing or fixing each area. Check against the named screenshot.
 - [ ] Recent: Past Day/Week/Month control; name + date rows
 - [ ] Favorites: name + date + chevron + grip; no X/+
 
+## Reorder (`08-REORDER-DRAG.md`)
+
+- [ ] Dragging moves **full row** (X + name + green + + grip), not grip alone
+- [ ] Other rows stay put until release; order persists
+
+## Menu copy
+
+- [ ] How-To matches `HOW-TO-GUIDE.md` including **Watch Tutorial Video** → YouTube channel
+- [ ] Why I Built matches `WHY-I-BUILT-THIS-APP.md` word-for-word (10 paragraphs)
+
 ---
 
 ## Done criteria for a screen
